@@ -1,7 +1,17 @@
+// #########################
+
+var cities = ["be", "ct", "mo", "rk", "sf"];
+var randomCity = parseInt(Math.random() * cities.length);
+
+var cityCode = cities[randomCity];
+var differentColors = false;
+
+// #########################
+
 var mymap;
 
-var lat = 52;
-var lon = 13;
+var lat;
+var lon;
 var x = 0;
 var y = 0;
 
@@ -34,16 +44,19 @@ function kimonoCallback(data) {
     avg = sum / counter.length;
 
     city = data.city;
+
+    lat = data.lat;
+    lon = data.lon;
 };
 
 $.ajax({
-    "url": "weather.json",
+    "url": "http://0.0.0.0:8000/p5/data/weather-" + cityCode + ".json",
         "crossDomain": false,
         "dataType": "jsonp"
 });
 
 function preload() {
-    mymap = loadImage("world.png");
+    mymap = loadImage("img/world.png");
 };
 
 function setup() {
@@ -51,16 +64,44 @@ function setup() {
     x = map(lon, -180, 180, 0, width);
     y = map(lat, 90, -90, 0, height);
 
-    image(mymap, 0, 0);
+    // image(mymap, 0, 0);
 
-    c1 = color(50, 165, 160);
-    c2 = color(217, 235, 161);
-    c3 = color(12, 71, 79);
+    var colorIndicator = random(100);
+
+
+
+    if (differentColors == true) {
+        if (colorIndicator < 25) {
+            c1 = color(50, 165, 160);
+            c2 = color(217, 235, 161);
+            c3 = color(12, 71, 79);
+        } else if (colorIndicator < 50 && colorIndicator > 25) {
+            c1 = color(103, 42, 187);
+            c2 = color(146, 249, 227);
+            c3 = color(35, 20, 55);
+        } else if (colorIndicator < 75 && colorIndicator > 50) {
+            c1 = color(252, 61, 32);
+            c2 = color(252, 215, 4);
+            c3 = color(38, 33, 48);
+        } else {
+            c1 = color(249, 101, 63);
+            c2 = color(249, 218, 146);
+            c3 = color(35, 35, 35);
+        }
+    } else {
+        c1 = color(50, 165, 160);
+        c2 = color(217, 235, 161);
+        c3 = color(12, 71, 79);
+    }
+
 
     $("canvas").css({
         border: "25px solid " + c3.colorString
     });
     $("#city").text(String(city));
+    $("#city").css({
+        color: c3.colorString
+    });
 };
 
 function draw() {
