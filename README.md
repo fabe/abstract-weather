@@ -1,5 +1,7 @@
 FHP-Algorithm
 =============
+First project of [Eingabe Ausgabe](https://incom.org/workspace/5478) WS 2014/15 at [FH Potsdam](http://www.fh-potsdam.de/).
+
 Visualizing temperature abstractly using p5.js.
 
 ## License
