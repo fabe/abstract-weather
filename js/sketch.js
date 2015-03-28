@@ -50,7 +50,7 @@ function kimonoCallback(data) {
 };
 
 $.ajax({
-    "url": "../data/weather-" + cityCode + ".json",
+    "url": "http://0.0.0.0:8000/p5/data/weather-" + cityCode + ".json",
         "crossDomain": false,
         "dataType": "jsonp"
 });
